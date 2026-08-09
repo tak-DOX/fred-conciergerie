@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List - Gestionnaire de Tâches</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --bg: #0f172a;
+    --bg-card: #1e293b;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, var(--bg) 0%, #1a1f3a 100%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .header p {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+  }
+  
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  
+  .input-group input {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  
+  .input-group input::placeholder {
+    color: var(--text-muted);
+  }
+  
+  .btn-add {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .btn-add:hover {
+    background: var(--primary-dark);
+  }
+  
+  .btn-add:active {
+    transform: scale(0.98);
+  }
+  
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .filter-btn {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+  
+  .filter-btn:hover {
+    border-color: var(--primary);
+  }
+  
+  .tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .task-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: all 0.2s;
+  }
+  
+  .task-item:hover {
+    border-color: var(--primary);
+    background: #1f2937;
+  }
+  
+  .task-item.completed {
+    opacity: 0.7;
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+  }
+  
+  .checkbox {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 2px;
+  }
+  
+  .checkbox:hover {
+    border-color: var(--primary);
+  }
+  
+  .task-item.completed .checkbox {
+    background: var(--success);
+    border-color: var(--success);
+  }
+  
+  .checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0;
+  }
+  
+  .task-item.completed .checkbox::after {
+    opacity: 1;
+  }
+  
+  .task-content {
+    flex: 1;
+  }
+  
+  .task-text {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  
+  .task-item.completed .task-text {
+    color: var(--text-muted);
+    text-decoration: line-through;
+  }
+  
+  .task-meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 12px;
+  }
+  
+  .task-priority {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .priority-high {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+  }
+  
+  .priority-medium {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+  }
+  
+  .priority-low {
+    background: rgba(16, 185, 129, 0.2);
+    color: #a7f3d0;
+  }
+  
+  .task-date {
+    color: var(--text-muted);
+  }
+  
+  .task-actions {
+    display: flex;
+    gap: 6px;
+    flex: 0 0 auto;
+  }
+  
+  .btn-delete {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .btn-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+  }
+  
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+  
+  .empty-state p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .progress-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .progress-label-left {
+    color: var(--text-muted);
+  }
+  
+  .progress-label-right {
+    color: var(--primary);
+    font-weight: 600;
+  }
+  
+  .progress-fill {
+    height: 6px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, #a78bfa 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>To-Do List</h1>
+    <p>Gestionnaire de tâches simple et efficace</p>
+  </div>
+  
+  <div class="progress-bar">
+    <div class="progress-label">
+      <span class="progress-label-left">Progression</span>
+      <span class="progress-label-right"><span id="completedCount">0</span>/<span id="totalCount">0</span></span>
+    </div>
+    <div class="progress-fill">
+      <div class="progress-bar-inner" id="progressBar" style="width: 0%"></div>
+    </div>
+  </div>
+  
+  <div class="stats">
+    <div class="stat-card">
+      <p class="stat-number" id="statTotal">0</p>
+      <p class="stat-label">Tâches</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-number" id="statPending">0</p>
+      <p class="stat-label">En attente</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-number" id="statCompleted">0</p>
+      <p class="stat-label">Complétées</p>
+    </div>
+  </div>
+  
+  <div class="input-group">
+    <input type="text" id="taskInput" placeholder="Ajouter une nouvelle tâche..." />
+    <select id="prioritySelect" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 12px 10px; font-size: 14px; font-family: 'Inter', sans-serif; cursor: pointer;">
+      <option value="low">Basse</option>
+      <option value="medium" selected>Moyenne</option>
+      <option value="high">Haute</option>
+    </select>
+    <button class="btn-add" id="addBtn">+ Ajouter</button>
+  </div>
+  
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">Toutes</button>
+    <button class="filter-btn" data-filter="pending">En attente</button>
+    <button class="filter-btn" data-filter="completed">Complétées</button>
+    <button class="filter-btn" data-filter="high">Haute priorité</button>
+  </div>
+  
+  <div class="tasks-container" id="tasksList"></div>
+</div>
+
+<script src="todo.js"></script>
+</body>
+</html>
