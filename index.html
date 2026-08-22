@@ -3,78 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fred Conciergerie — Prestataires</title>
+<title>Fred Conciergerie — Conciergerie privée, Paris & international</title>
+<link rel="icon" href="assets/logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #14120E;
-    --card: #1E1B15;
-    --card-hover: #262219;
-    --gold: #C6A15B;
-    --gold-dim: #8A6F3E;
-    --ivory: #F3EEE3;
-    --muted: #9C8F76;
-    --border: #332E23;
-    --danger: #C0604B;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--ivory);font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent;}
-  .app{max-width:480px;margin:0 auto;padding:0 0 90px;}
-  .header{padding:28px 20px 16px;}
-  .brand{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;letter-spacing:0.5px;color:var(--gold);margin:0;}
-  .sub{font-size:12px;color:var(--muted);margin:4px 0 0;letter-spacing:1.5px;text-transform:uppercase;}
-  .search-wrap{padding:0 20px 14px;}
-  .search{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--ivory);font-size:15px;font-family:'Inter',sans-serif;}
-  .search::placeholder{color:var(--muted);}
-  .search:focus{outline:none;border-color:var(--gold-dim);}
-  .tabs{display:flex;gap:8px;overflow-x:auto;padding:0 20px 16px;scrollbar-width:none;}
-  .tabs::-webkit-scrollbar{display:none;}
-  .tab{flex:0 0 auto;padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-family:'Inter',sans-serif;font-weight:500;white-space:nowrap;cursor:pointer;}
-  .tab.active{background:var(--gold);border-color:var(--gold);color:#1A1608;}
-  .list{padding:0 20px;display:flex;flex-direction:column;gap:10px;}
-  .empty{text-align:center;color:var(--muted);font-size:14px;padding:40px 20px;line-height:1.6;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
-  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-  .card-name{font-size:15px;font-weight:600;margin:0;color:var(--ivory);}
-  .card-cat{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:2px 0 0;}
-  .stars{font-size:11px;color:var(--gold);white-space:nowrap;flex-shrink:0;}
-  .card-spec{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.5;}
-  .card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
-  .pill{font-size:11px;color:var(--muted);background:#161310;border:1px solid var(--border);border-radius:6px;padding:3px 8px;}
-  .card-actions{display:flex;gap:8px;margin-top:12px;}
-  .btn-action{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--border);color:var(--ivory);cursor:pointer;background:transparent;}
-  .btn-call{background:#1E241A;border-color:#3A4A2E;color:#B7D19A;}
-  .btn-wa{background:#16241F;border-color:#2E4A3C;color:#9AD1B9;}
-  .btn-del{flex:0 0 auto;padding:9px 12px;color:var(--danger);border-color:#4A2E28;background:#241816;}
-  .fab{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;max-width:440px;width:calc(100% - 40px);background:var(--gold);color:#1A1608;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;}
-  .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:flex-end;z-index:999;}
-  .modal{background:var(--card);border:1px solid var(--border);border-radius:16px 16px 0 0;padding:24px;width:100%;max-height:90vh;overflow-y:auto;}
-  .modal h3{font-family:'Cormorant Garamond',serif;color:var(--gold);margin:0 0 16px;font-size:22px;font-weight:600;}
-  .field{margin-bottom:14px;}
-  .field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
-  .field input, .field select{width:100%;background:#161310;border:1px solid var(--border);border-radius:8px;padding:11px;color:var(--ivory);font-size:14px;font-family:'Inter',sans-serif;}
-  .field input:focus, .field select:focus{outline:none;border-color:var(--gold-dim);}
-  .modal-actions{display:flex;gap:10px;margin-top:18px;}
-  .btn-save{flex:1;background:var(--gold);color:#1A1608;border:none;border-radius:8px;padding:12px;font-weight:600;font-size:14px;cursor:pointer;}
-  .btn-cancel{flex:1;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:14px;cursor:pointer;}
-  .loading{text-align:center;color:var(--muted);font-size:13px;padding:30px;}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app" id="app">
-  <div class="header">
-    <p class="brand">Fred Conciergerie</p>
-    <p class="sub">Carnet prestataires</p>
-  </div>
-  <div class="search-wrap">
-    <input class="search" id="search" placeholder="Rechercher un nom, une spécialité, une zone..." />
-  </div>
-  <div class="tabs" id="tabs"></div>
-  <div class="list" id="list"><div class="loading">Chargement...</div></div>
-</div>
-<button class="fab" id="fabAdd">+ Ajouter un prestataire</button>
 
-<script src="app.js"></script>
+<header id="siteHeader">
+  <div class="brand-mark">
+    <img src="assets/logo.png" alt="Fred Conciergerie" class="logo-img">
+    <span class="brand-name">Fred Conciergerie</span>
+  </div>
+  <nav id="siteNav">
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#philosophie" class="nav-link">Philosophie</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <a href="tel:+33616545418" class="nav-call">06 16 54 54 18</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<section class="hero">
+  <img src="assets/logo.png" alt="" class="hero-key">
+  <div class="hero-inner">
+    <span class="eyebrow">Conciergerie privée · Paris &amp; dans le monde entier</span>
+    <h1>Votre conciergerie <em>de confiance</em>, où que vous soyez.</h1>
+    <p class="tagline">Beyond reach</p>
+    <p>Villas, yachts, jets privés, chefs, sécurité, événements : un interlocuteur unique pour organiser chaque détail de votre séjour, avec exigence et discrétion.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Faire une demande</a>
+      <a href="tel:+33616545418" class="btn-ghost">Appeler directement</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="line"></span><span>Découvrir</span></div>
+</section>
+
+<section id="philosophie">
+  <div class="wrap philosophy">
+    <div class="reveal">
+      <span class="eyebrow">Notre approche</span>
+      <p class="lede" style="margin-top:14px;">Fred Conciergerie met à votre disposition <em>un réseau de prestataires sélectionnés</em> et un interlocuteur unique pour organiser chaque aspect de votre vie, à Paris comme à l'étranger.</p>
+    </div>
+    <div class="philosophy-list reveal">
+      <div class="philosophy-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="#A9803E" stroke-width="1.6"><circle cx="8" cy="8" r="5"/><path d="M11.5 11.5L20 20M15 16l2-2M18 19l2-2"/></svg>
+        <div><h3>Un seul contact</h3><p>Vous formulez une envie, nous orchestrons tout le reste — sans multiplier les intermédiaires.</p></div>
+      </div>
+      <div class="philosophy-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="#A9803E" stroke-width="1.6"><circle cx="8" cy="8" r="5"/><path d="M11.5 11.5L20 20M15 16l2-2M18 19l2-2"/></svg>
+        <div><h3>Un réseau éprouvé</h3><p>Chaque prestataire est sélectionné, testé, et suivi dans la durée — pas improvisé pour l'occasion.</p></div>
+      </div>
+      <div class="philosophy-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="#A9803E" stroke-width="1.6"><circle cx="8" cy="8" r="5"/><path d="M11.5 11.5L20 20M15 16l2-2M18 19l2-2"/></svg>
+        <div><h3>Une discrétion totale</h3><p>Vos demandes, vos habitudes, vos déplacements restent entre nous, en toute confidentialité.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ce que nous orchestrons</span>
+      <h2>Un service, une exigence</h2>
+      <p>Six domaines, un même niveau d'attention. Chaque demande est traitée sur-mesure, quelle que soit sa taille.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="service-grid reveal">
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12l2-6h14l2 6M5 12h14v5H5zM7 17v2M17 17v2"/><circle cx="8" cy="14" r="0.6" fill="currentColor"/><circle cx="16" cy="14" r="0.6" fill="currentColor"/></svg>
+        <h3>Chauffeurs privés</h3>
+        <p>Transferts, mise à disposition, événements — véhicules haut de gamme et conduite discrète.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c-2 2-2 4 0 5s2 3 0 5M7 8c-2 1-2 4 1 5h8c3-1 3-4 1-5M8 13v7M16 13v7M8 20h8"/></svg>
+        <h3>Chefs privés</h3>
+        <p>Menus sur-mesure à domicile, à bord, ou en villa — de l'intime au grand dîner.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+        <h3>Sécurité</h3>
+        <p>Protection rapprochée et sécurisation d'événements, en toute discrétion.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 15h18M4 15l1-6 6-2 6 2 3 3M9 9V5M9 5h5"/></svg>
+        <h3>Yachts &amp; jets</h3>
+        <p>Location avec équipage, vols privés — de la journée en mer au voyage international.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg>
+        <h3>Villas</h3>
+        <p>Sélection de propriétés d'exception avec personnel sur place, en France et à l'international.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg>
+        <h3>Événementiel</h3>
+        <p>Soirées privées, mariages, célébrations — conception et coordination de A à Z.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Comment ça se passe</span>
+      <h2>Du premier mot à l'expérience</h2>
+    </div>
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <span class="process-num">01</span>
+        <h3>Votre demande</h3>
+        <p>Par téléphone, WhatsApp ou le formulaire ci-dessous — décrivez simplement l'envie.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-num">02</span>
+        <h3>Proposition sur-mesure</h3>
+        <p>Nous revenons vers vous avec une sélection adaptée, souvent en moins de 24h.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-num">03</span>
+        <h3>Confirmation</h3>
+        <p>Vous validez, nous verrouillons chaque détail avec les prestataires concernés.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-num">04</span>
+        <h3>L'expérience</h3>
+        <p>Nous restons joignables avant, pendant, et après — au cas où.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="commitments">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nos engagements</span>
+      <h2>Ce qui ne change jamais</h2>
+    </div>
+    <div class="commit-grid reveal">
+      <div class="commit-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><path d="M11.5 11.5L20 20M15 16l2-2M18 19l2-2"/></svg>
+        <h3>Discrétion</h3>
+        <p>Vos informations ne circulent jamais au-delà de ce qui est nécessaire.</p>
+      </div>
+      <div class="commit-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3>Disponibilité</h3>
+        <p>Une ligne directe, joignable pour l'essentiel comme pour l'imprévu.</p>
+      </div>
+      <div class="commit-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="2.4"/><circle cx="17" cy="7" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M8.8 8.5L11 15M15.2 8.5L13 15"/></svg>
+        <h3>Réseau choisi</h3>
+        <p>Chaque prestataire est validé personnellement, pas simplement référencé.</p>
+      </div>
+      <div class="commit-item">
+        <svg class="key-bullet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg>
+        <h3>Sur-mesure</h3>
+        <p>Aucune offre standard : chaque demande est pensée pour vous, spécifiquement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Nous joindre</span>
+      <h2 style="margin-top:14px;">Une envie, une question ?</h2>
+      <p>Décrivez votre demande, nous revenons vers vous rapidement — en général sous 24h.</p>
+
+      <div class="contact-row">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2C10 21 3 14 3 6a2 2 0 0 1 2-2z"/></svg>
+        <a href="tel:+33616545418">06 16 54 54 18</a>
+      </div>
+      <div class="contact-row">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+        <a href="mailto:contact@fred-conciergerie.fr">contact@fred-conciergerie.fr</a>
+      </div>
+      <div class="contact-row">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+        <span>Paris — interventions dans le monde entier</span>
+      </div>
+    </div>
+
+    <form action="mailto:contact@fred-conciergerie.fr" method="post" enctype="text/plain">
+      <div class="form-row">
+        <div class="field"><label>Nom</label><input type="text" name="Nom" required></div>
+        <div class="field"><label>Téléphone</label><input type="tel" name="Telephone"></div>
+      </div>
+      <div class="field"><label>Email</label><input type="email" name="Email" required></div>
+      <div class="field">
+        <label>Type de demande</label>
+        <select name="Type">
+          <option>Chauffeur privé</option>
+          <option>Chef privé</option>
+          <option>Sécurité</option>
+          <option>Yacht / Jet</option>
+          <option>Villa</option>
+          <option>Événementiel</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="field"><label>Votre demande</label><textarea name="Message" required></textarea></div>
+      <button type="submit" class="submit-btn">Envoyer la demande</button>
+      <p class="form-note">Le bouton ouvre votre application mail avec le message pré-rempli.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="brand-mark">
+        <img src="assets/logo.png" alt="Fred Conciergerie" class="logo-img" style="width:34px; height:34px;">
+        <span class="brand-name">Fred Conciergerie</span>
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#philosophie">Philosophie</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Fred Conciergerie — Beyond reach. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
